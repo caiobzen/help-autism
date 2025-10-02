@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Progress - Help Autism</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="trip-progress-page">
+    <header class="subpage-header">
+        <nav>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </nav>
+        <h1 id="timeRemaining">Trip progress</h1>
+    </header>
+    
+    <main class="trip-content">
+        <div class="road">
+            <div class="road-marks"></div>
+            <div class="car">🚗</div>
+            <div class="destination">🏫</div>
+        </div>
+        <div class="controls">
+            <button onclick="addMinutes(5)">+5 min</button>
+            <button onclick="resetTrip()">Reset</button>
+        </div>
+    </main>
+
+    <script>
+        const car = document.querySelector('.car');
+        const road = document.querySelector('.road');
+        const timeRemainingEl = document.getElementById('timeRemaining');
+        let progress = 0;
+        let intervalId = null;
+        let totalSeconds = 0;
+        let elapsedSeconds = 0;
+
+        function startTrip(minutes) {
+            if (!minutes || minutes <= 0) {
+                alert('Please enter a valid duration in minutes (minimum 1).');
+                return;
+            }
+
+            // Reset state
+            clearInterval(intervalId);
+            progress = 0;
+            elapsedSeconds = 0;
+            totalSeconds = Math.round(minutes * 60);
+            updateTimeRemaining();
+            updateCarPosition();
+
+            intervalId = setInterval(() => {
+                elapsedSeconds += 1;
+                progress = Math.min(100, (elapsedSeconds / totalSeconds) * 100);
+                updateCarPosition();
+                updateTimeRemaining();
+
+                if (elapsedSeconds >= totalSeconds) {
+                    clearInterval(intervalId);
+                    intervalId = null;
+                }
+            }, 1000);
+        }
+
+        function addMinutes(minutes) {
+            if (minutes <= 0) return;
+            if (intervalId === null) {
+                // No trip running, start a new trip
+                startTrip(minutes);
+            } else {
+                // Add minutes to totalSeconds
+                totalSeconds += minutes * 60;
+                updateTimeRemaining();
+            }
+        }
+
+        function resetTrip() {
+            clearInterval(intervalId);
+            intervalId = null;
+            progress = 0;
+            elapsedSeconds = 0;
+            totalSeconds = 0;
+            car.style.left = '0px'; // Explicitly move car to the beginning
+            updateCarPosition();
+            updateTimeRemaining();
+        }
+
+        function updateCarPosition() {
+            const roadWidth = road.offsetWidth - car.offsetWidth; // keep car inside road
+            const carPosition = (progress / 100) * roadWidth;
+            car.style.left = `${carPosition}px`;
+        }
+
+        function updateTimeRemaining() {
+            if (!totalSeconds) {
+                timeRemainingEl.textContent = 'Trip progress';
+                return;
+            }
+            const remaining = Math.max(0, totalSeconds - elapsedSeconds);
+            const mins = Math.floor(remaining / 60);
+            const secs = remaining % 60;
+            timeRemainingEl.textContent = `Time left: ${mins}m ${secs}s`;
+        }
+
+        // Keep car positioned correctly if the window is resized
+        window.addEventListener('resize', updateCarPosition);
+
+        // Ensure car starts at 0
+        car.style.left = '0px';
+    </script>
+</body>
+</html>

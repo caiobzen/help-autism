@@ -3,102 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trip Progress</title>
+    <title>Help Autism - Supportive Tools for Families</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <h1 id="timeRemaining">Trip progress</h1>
-        <div class="road">
-            <div class="road-marks"></div>
-            <div class="car">🚗</div>
-            <div class="destination">🏫</div>
+<body class="landing-page">
+    <header class="hero-section">
+        <div class="hero-banner">
+            <div class="hero-content">
+                <h1 class="hero-title">Help Autism</h1>
+                <p class="hero-subtitle">Supportive Tools for Families on the Autism Spectrum</p>
+            </div>
+            <div class="hero-image">
+                <span class="banner-emoji">🧩💙</span>
+            </div>
         </div>
-    <div class="controls">
-        <button onclick="addMinutes(5)">+5 min</button>
-        <button onclick="resetTrip()">Reset</button>
-    </div>
+    </header>
 
-    <script>
-        const car = document.querySelector('.car');
-        const road = document.querySelector('.road');
-        const timeRemainingEl = document.getElementById('timeRemaining');
-        let progress = 0;
-        let intervalId = null;
-        let totalSeconds = 0;
-        let elapsedSeconds = 0;
+    <main class="main-content">
+        <section class="description-section">
+            <div class="container">
+                <h2>Building Understanding Through Interactive Tools</h2>
+                <p>Our mission is to create helpful, accessible tools that support individuals with autism and their families. Each tool is designed with care to provide visual, interactive ways to understand and navigate daily experiences.</p>
+            </div>
+        </section>
 
-        function startTrip(minutes) {
-            if (!minutes || minutes <= 0) {
-                alert('Please enter a valid duration in minutes (minimum 1).');
-                return;
-            }
+        <section class="tools-section">
+            <div class="container">
+                <h2>Available Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <div class="tool-icon">🚗</div>
+                        <h3>Trip Progress</h3>
+                        <p>A visual timer that helps track journey progress with an animated car moving along a road. Perfect for helping understand "how much longer" during trips.</p>
+                        <a href="trip-progress.html" class="tool-link">Try Trip Progress →</a>
+                    </div>
+                    
+                    <!-- Future tools can be added here -->
+                    <div class="tool-card coming-soon">
+                        <div class="tool-icon">⏰</div>
+                        <h3>Daily Schedule</h3>
+                        <p>Coming soon: Visual schedule tool to help plan and understand daily routines.</p>
+                        <span class="coming-soon-badge">Coming Soon</span>
+                    </div>
+                    
+                    <div class="tool-card coming-soon">
+                        <div class="tool-icon">😊</div>
+                        <h3>Emotion Helper</h3>
+                        <p>Coming soon: Interactive tool to help identify and express emotions.</p>
+                        <span class="coming-soon-badge">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-            // Reset state
-            clearInterval(intervalId);
-            progress = 0;
-            elapsedSeconds = 0;
-            totalSeconds = Math.round(minutes * 60);
-            updateTimeRemaining();
-            updateCarPosition();
-
-            intervalId = setInterval(() => {
-                elapsedSeconds += 1;
-                progress = Math.min(100, (elapsedSeconds / totalSeconds) * 100);
-                updateCarPosition();
-                updateTimeRemaining();
-
-                if (elapsedSeconds >= totalSeconds) {
-                    clearInterval(intervalId);
-                    intervalId = null;
-                }
-            }, 1000);
-        }
-
-        function addMinutes(minutes) {
-            if (minutes <= 0) return;
-            if (intervalId === null) {
-                // No trip running, start a new trip
-                startTrip(minutes);
-            } else {
-                // Add minutes to totalSeconds
-                totalSeconds += minutes * 60;
-                updateTimeRemaining();
-            }
-        }
-
-        function resetTrip() {
-            clearInterval(intervalId);
-            intervalId = null;
-            progress = 0;
-            elapsedSeconds = 0;
-            totalSeconds = 0;
-            car.style.left = '0px'; // Explicitly move car to the beginning
-            updateCarPosition();
-            updateTimeRemaining();
-        }
-
-        function updateCarPosition() {
-            const roadWidth = road.offsetWidth - car.offsetWidth; // keep car inside road
-            const carPosition = (progress / 100) * roadWidth;
-            car.style.left = `${carPosition}px`;
-        }
-
-        function updateTimeRemaining() {
-            if (!totalSeconds) {
-                timeRemainingEl.textContent = 'Trip progress';
-                return;
-            }
-            const remaining = Math.max(0, totalSeconds - elapsedSeconds);
-            const mins = Math.floor(remaining / 60);
-            const secs = remaining % 60;
-            timeRemainingEl.textContent = `Time left: ${mins}m ${secs}s`;
-        }
-
-        // Keep car positioned correctly if the window is resized
-        window.addEventListener('resize', updateCarPosition);
-
-        // Ensure car starts at 0
-        car.style.left = '0px';
-    </script>
+    <footer class="site-footer">
+        <div class="container">
+            <p>Made with 💙 for the autism community</p>
+        </div>
+    </footer>
 </body>
 </html>
