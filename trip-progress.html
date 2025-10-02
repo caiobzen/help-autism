@@ -9,9 +9,9 @@
 <body class="trip-progress-page">
     <header class="subpage-header">
         <nav>
-            <a href="index.html" class="back-link">← Back to Home</a>
+            <a href="index.html" class="back-link" data-translate="backToHome">← Back to Home</a>
         </nav>
-        <h1 id="timeRemaining">Trip progress</h1>
+        <h1 id="timeRemaining" data-translate="tripProgressHeading">Trip progress</h1>
     </header>
     
     <main class="trip-content">
@@ -21,11 +21,14 @@
             <div class="destination">🏫</div>
         </div>
         <div class="controls">
-            <button onclick="addMinutes(5)">+5 min</button>
-            <button onclick="resetTrip()">Reset</button>
+            <button onclick="addMinutes(5)" data-translate="addMinutesButton">+5 min</button>
+            <button onclick="resetTrip()" data-translate="resetButton">Reset</button>
         </div>
     </main>
 
+    <script src="lang/en.js"></script>
+    <script src="lang/pt.js"></script>
+    <script src="js/language.js"></script>
     <script>
         const car = document.querySelector('.car');
         const road = document.querySelector('.road');
@@ -93,13 +96,24 @@
 
         function updateTimeRemaining() {
             if (!totalSeconds) {
-                timeRemainingEl.textContent = 'Trip progress';
+                // Use language manager if available
+                if (window.langManager) {
+                    window.langManager.updateTimeRemaining();
+                } else {
+                    timeRemainingEl.textContent = 'Trip progress';
+                }
                 return;
             }
             const remaining = Math.max(0, totalSeconds - elapsedSeconds);
             const mins = Math.floor(remaining / 60);
             const secs = remaining % 60;
-            timeRemainingEl.textContent = `Time left: ${mins}m ${secs}s`;
+            
+            // Use language manager if available
+            if (window.langManager) {
+                window.langManager.updateTimeRemaining(mins, secs);
+            } else {
+                timeRemainingEl.textContent = `Time left: ${mins}m ${secs}s`;
+            }
         }
 
         // Keep car positioned correctly if the window is resized
@@ -107,6 +121,13 @@
 
         // Ensure car starts at 0
         car.style.left = '0px';
+
+        // Wait for language manager to be ready
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                updateTimeRemaining();
+            }, 100);
+        });
     </script>
 </body>
 </html>

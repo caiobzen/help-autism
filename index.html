@@ -10,8 +10,8 @@
     <header class="hero-section">
         <div class="hero-banner">
             <div class="hero-content">
-                <h1 class="hero-title">Help Autism</h1>
-                <p class="hero-subtitle">Supportive Tools for Families on the Autism Spectrum</p>
+                <h1 class="hero-title" data-translate="heroTitle">Help Autism</h1>
+                <p class="hero-subtitle" data-translate="heroSubtitle">Supportive Tools for Families on the Autism Spectrum</p>
             </div>
             <div class="hero-image">
                 <span class="banner-emoji">🧩💙</span>
@@ -22,35 +22,35 @@
     <main class="main-content">
         <section class="description-section">
             <div class="container">
-                <h2>Building Understanding Through Interactive Tools</h2>
-                <p>Our mission is to create helpful, accessible tools that support individuals with autism and their families. Each tool is designed with care to provide visual, interactive ways to understand and navigate daily experiences.</p>
+                <h2 data-translate="descriptionTitle">Building Understanding Through Interactive Tools</h2>
+                <p data-translate="descriptionText">Our mission is to create helpful, accessible tools that support individuals with autism and their families. Each tool is designed with care to provide visual, interactive ways to understand and navigate daily experiences.</p>
             </div>
         </section>
 
         <section class="tools-section">
             <div class="container">
-                <h2>Available Tools</h2>
+                <h2 data-translate="availableToolsTitle">Available Tools</h2>
                 <div class="tools-grid">
                     <div class="tool-card">
                         <div class="tool-icon">🚗</div>
-                        <h3>Trip Progress</h3>
-                        <p>A visual timer that helps track journey progress with an animated car moving along a road. Perfect for helping understand "how much longer" during trips.</p>
-                        <a href="trip-progress.html" class="tool-link">Try Trip Progress →</a>
+                        <h3 data-translate="tripProgressTitle">Trip Progress</h3>
+                        <p data-translate="tripProgressDescription">A visual timer that helps track journey progress with an animated car moving along a road. Perfect for helping understand "how much longer" during trips.</p>
+                        <a href="trip-progress.html" class="tool-link" data-translate="tripProgressLink">Try Trip Progress →</a>
                     </div>
                     
                     <!-- Future tools can be added here -->
                     <div class="tool-card coming-soon">
                         <div class="tool-icon">⏰</div>
-                        <h3>Daily Schedule</h3>
-                        <p>Coming soon: Visual schedule tool to help plan and understand daily routines.</p>
-                        <span class="coming-soon-badge">Coming Soon</span>
+                        <h3 data-translate="dailyScheduleTitle">Daily Schedule</h3>
+                        <p data-translate="dailyScheduleDescription">Coming soon: Visual schedule tool to help plan and understand daily routines.</p>
+                        <span class="coming-soon-badge" data-translate="comingSoonBadge">Coming Soon</span>
                     </div>
                     
                     <div class="tool-card coming-soon">
                         <div class="tool-icon">😊</div>
-                        <h3>Emotion Helper</h3>
-                        <p>Coming soon: Interactive tool to help identify and express emotions.</p>
-                        <span class="coming-soon-badge">Coming Soon</span>
+                        <h3 data-translate="emotionHelperTitle">Emotion Helper</h3>
+                        <p data-translate="emotionHelperDescription">Coming soon: Interactive tool to help identify and express emotions.</p>
+                        <span class="coming-soon-badge" data-translate="comingSoonBadge">Coming Soon</span>
                     </div>
                 </div>
             </div>
@@ -59,8 +59,12 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>Made with 💙 for the autism community</p>
+            <p data-translate="footerText">Made with 💙 for the autism community</p>
         </div>
     </footer>
+
+    <script src="lang/en.js"></script>
+    <script src="lang/pt.js"></script>
+    <script src="js/language.js"></script>
 </body>
 </html>
