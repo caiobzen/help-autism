@@ -40,7 +40,7 @@ body {
 .hero-section {
     background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
     color: var(--white);
-    padding: 80px 0;
+    padding: 60px 0;
     text-align: center;
 }
 
@@ -57,6 +57,7 @@ body {
 .hero-content h1.hero-title {
     font-size: 3.5rem;
     font-weight: 700;
+    margin-top: 40px;
     margin-bottom: 15px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
@@ -635,17 +636,44 @@ body {
 
 /* Responsive design */
 @media (max-width: 768px) {
+    /* Add padding to account for fixed language switcher */
+    .main-content,
+    .container {
+        padding-top: 60px;
+    }
+    
+    /* Reduce header heights on mobile */
+    .hero-section {
+        padding: 15px 0; /* Keep some padding but account for language switcher */
+        padding-top: 20px; /* Add top padding for language switcher */
+    }
+    
+    .subpage-header {
+        padding: 5px 0;
+        margin-bottom: 10px;
+    }
+    
+    .hero-banner {
+        gap: 0px; /* Reduced from 20px to 15px */
+        padding: 0 0px; /* Reduced from 15px to 10px */
+    }
+    
     .hero-content h1.hero-title {
         font-size: 2.5rem;
+        margin-top: 25px;
+        margin-bottom: 5px; /* Reduced from 10px to 5px */
     }
     
     .hero-subtitle {
         font-size: 1.1rem;
+        margin-bottom: 5px; /* Add smaller margin */
     }
     
     .description-section h2,
     .tools-section h2 {
         font-size: 2rem;
+        margin-top: -60px; /* Reduce top margin */
+        margin-bottom: 20px; /* Reduce bottom margin */
     }
     
     .tools-grid {
@@ -755,19 +783,28 @@ body {
     }
     
     .language-switcher {
-        position: relative;
-        top: auto;
+        position: fixed;
+        top: 10px;
+        left: 50%;
         right: auto;
-        margin: 10px auto 0;
+        transform: translateX(-50%);
+        width: 70%;
+        max-width: 300px;
+        margin: 0;
         justify-content: center;
+        z-index: 1000;
     }
     
     .subpage-header .language-switcher {
-        position: relative;
-        top: auto;
+        position: fixed;
+        top: 10px;
+        left: 50%;
         right: auto;
-        transform: none;
-        margin: 10px auto 0;
+        transform: translateX(-50%);
+        width: 70%;
+        max-width: 300px;
+        margin: 0;
         justify-content: center;
+        z-index: 1000;
     }
 }
