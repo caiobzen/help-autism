@@ -28,12 +28,31 @@ window.translations.en = {
     tripProgressPageTitle: "Trip Progress - Help Autism",
     backToHome: "← Back to Home",
     tripProgressHeading: "Trip progress",
-    addMinutesButton: "+5 min",
+    setTimeButton: "Set Time",
     resetButton: "Reset",
     timeLeftText: "Time left: {mins}m {secs}s",
+    selectTime: "Select Time",
+    startTrip: "Start Trip",
+    minutes: "min",
     
     // Language switcher
     languageLabel: "Language:",
     english: "English",
-    portuguese: "Português"
+    portuguese: "Português",
+    
+    // Transport and destination selection
+    selectTransport: "Select Transport",
+    selectDestination: "Select Destination",
+    car: "Car",
+    bus: "Bus",
+    train: "Train",
+    taxi: "Taxi",
+    plane: "Plane",
+    bike: "Bike",
+    school: "School",
+    home: "Home",
+    hospital: "Hospital",
+    store: "Store",
+    arcade: "Arcade",
+    restaurant: "Restaurant"
 };

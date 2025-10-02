@@ -28,12 +28,31 @@ window.translations.pt = {
     tripProgressPageTitle: "Progresso da Viagem - Help Autism",
     backToHome: "← Voltar ao Início",
     tripProgressHeading: "Progresso da viagem",
-    addMinutesButton: "+5 min",
+    setTimeButton: "Definir Tempo",
     resetButton: "Reiniciar",
     timeLeftText: "Tempo restante: {mins}m {secs}s",
+    selectTime: "Selecionar Tempo",
+    startTrip: "Iniciar Viagem",
+    minutes: "min",
     
     // Language switcher
     languageLabel: "Idioma:",
     english: "English",
-    portuguese: "Português"
+    portuguese: "Português",
+    
+    // Transport and destination selection
+    selectTransport: "Selecionar Transporte",
+    selectDestination: "Selecionar Destino",
+    car: "Carro",
+    bus: "Autocarro",
+    train: "Comboio",
+    taxi: "Taxi",
+    plane: "Avião",
+    bike: "Bicicleta",
+    school: "Escola",
+    home: "Casa",
+    hospital: "Hospital",
+    store: "Loja",
+    arcade: "Arcade",
+    restaurant: "Restaurante"
 };

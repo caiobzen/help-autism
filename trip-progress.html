@@ -17,12 +17,106 @@
         <div id="timeDisplay" class="time-display">Ready to start</div>
         <div class="road">
             <div class="road-marks"></div>
-            <div class="car">🚗</div>
-            <div class="destination">🏫</div>
+            <div class="car" id="transportSelector">🚗</div>
+            <div class="destination" id="destinationSelector">🏫</div>
+            
+            <!-- Transport selection menu -->
+            <div id="transportMenu" class="selection-menu">
+                <button class="close-menu" onclick="closeTransportMenu()">×</button>
+                <h3 data-translate="selectTransport">Select Transport</h3>
+                <div class="selection-grid">
+                    <div class="selection-item active" data-transport="🚗" onclick="selectTransport('🚗')">
+                        🚗
+                        <span data-translate="car">Car</span>
+                    </div>
+                    <div class="selection-item" data-transport="🚌" onclick="selectTransport('🚌')">
+                        🚌
+                        <span data-translate="bus">Bus</span>
+                    </div>
+                    <div class="selection-item" data-transport="🚂" onclick="selectTransport('🚂')">
+                        🚂
+                        <span data-translate="train">Train</span>
+                    </div>
+                    <div class="selection-item" data-transport="🚕" onclick="selectTransport('🚕')">
+                        🚕
+                        <span data-translate="taxi">Taxi</span>
+                    </div>
+                    <div class="selection-item" data-transport="🛩️" onclick="selectTransport('🛩️')">
+                        🛩️
+                        <span data-translate="plane">Plane</span>
+                    </div>
+                    <div class="selection-item" data-transport="🚲" onclick="selectTransport('🚲')">
+                        🚲
+                        <span data-translate="bike">Bike</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Destination selection menu -->
+            <div id="destinationMenu" class="selection-menu">
+                <button class="close-menu" onclick="closeDestinationMenu()">×</button>
+                <h3 data-translate="selectDestination">Select Destination</h3>
+                <div class="selection-grid">
+                    <div class="selection-item active" data-destination="🏫" onclick="selectDestination('🏫')">
+                        🏫
+                        <span data-translate="school">School</span>
+                    </div>
+                    <div class="selection-item" data-destination="🏠" onclick="selectDestination('🏠')">
+                        🏠
+                        <span data-translate="home">Home</span>
+                    </div>
+                    <div class="selection-item" data-destination="🏥" onclick="selectDestination('🏥')">
+                        🏥
+                        <span data-translate="hospital">Hospital</span>
+                    </div>
+                    <div class="selection-item" data-destination="🏪" onclick="selectDestination('🏪')">
+                        🏪
+                        <span data-translate="store">Store</span>
+                    </div>
+                    <div class="selection-item" data-destination="🎮" onclick="selectDestination('🎮')">
+                        🎮
+                        <span data-translate="arcade">Arcade</span>
+                    </div>
+                    <div class="selection-item" data-destination="🍕" onclick="selectDestination('🍕')">
+                        🍕
+                        <span data-translate="restaurant">Restaurant</span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="controls">
-            <button onclick="addMinutes(5)" data-translate="addMinutesButton">+5 min</button>
+            <button onclick="showTimeSelector()" data-translate="setTimeButton">Set Time</button>
             <button onclick="resetTrip()" data-translate="resetButton">Reset</button>
+        </div>
+        
+        <!-- Time selection menu -->
+        <div id="timeSelector" class="time-selector">
+            <div class="time-selector-content">
+                <button class="close-menu" onclick="closeTimeSelector()">×</button>
+                <h3 data-translate="selectTime">Select Time</h3>
+                <div class="time-display-large" id="selectedTimeDisplay">5 min</div>
+                <div class="time-controls">
+                    <button class="time-btn minus" onclick="adjustTime(-1)">-</button>
+                    <div class="time-slider-container">
+                        <input type="range" id="timeSlider" min="1" max="60" value="5" step="1" oninput="updateTimeDisplay()">
+                        <div class="time-markers">
+                            <span>1</span>
+                            <span>15</span>
+                            <span>30</span>
+                            <span>45</span>
+                            <span>60</span>
+                        </div>
+                    </div>
+                    <button class="time-btn plus" onclick="adjustTime(1)">+</button>
+                </div>
+                <div class="time-presets">
+                    <button class="preset-btn" onclick="setPresetTime(5)">5 min</button>
+                    <button class="preset-btn" onclick="setPresetTime(10)">10 min</button>
+                    <button class="preset-btn" onclick="setPresetTime(15)">15 min</button>
+                    <button class="preset-btn" onclick="setPresetTime(30)">30 min</button>
+                </div>
+                <button class="start-trip-btn" onclick="startTripWithSelectedTime()" data-translate="startTrip">Start Trip</button>
+            </div>
         </div>
     </main>
 
@@ -33,10 +127,123 @@
         const car = document.querySelector('.car');
         const road = document.querySelector('.road');
         const timeDisplayEl = document.getElementById('timeDisplay');
+        const transportMenu = document.getElementById('transportMenu');
+        const destinationMenu = document.getElementById('destinationMenu');
         let progress = 0;
         let intervalId = null;
         let totalSeconds = 0;
         let elapsedSeconds = 0;
+
+        // Add click event listeners for menus
+        document.getElementById('transportSelector').addEventListener('click', showTransportMenu);
+        document.getElementById('destinationSelector').addEventListener('click', showDestinationMenu);
+
+        // Close menus when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!transportMenu.contains(event.target) && !document.getElementById('transportSelector').contains(event.target)) {
+                closeTransportMenu();
+            }
+            if (!destinationMenu.contains(event.target) && !document.getElementById('destinationSelector').contains(event.target)) {
+                closeDestinationMenu();
+            }
+            if (!document.getElementById('timeSelector').contains(event.target) && !event.target.matches('[onclick*="showTimeSelector"]')) {
+                closeTimeSelector();
+            }
+        });
+
+        function showTransportMenu(event) {
+            event.stopPropagation();
+            closeDestinationMenu();
+            const rect = car.getBoundingClientRect();
+            const roadRect = road.getBoundingClientRect();
+            transportMenu.style.left = `${rect.left - roadRect.left}px`;
+            transportMenu.style.top = `${rect.bottom - roadRect.top + 10}px`;
+            transportMenu.classList.add('show');
+        }
+
+        function closeTransportMenu() {
+            transportMenu.classList.remove('show');
+        }
+
+        function showDestinationMenu(event) {
+            event.stopPropagation();
+            closeTransportMenu();
+            const rect = document.getElementById('destinationSelector').getBoundingClientRect();
+            const roadRect = road.getBoundingClientRect();
+            destinationMenu.style.right = `0px`;
+            destinationMenu.style.top = `${rect.bottom - roadRect.top + 10}px`;
+            destinationMenu.classList.add('show');
+        }
+
+        function closeDestinationMenu() {
+            destinationMenu.classList.remove('show');
+        }
+
+        function selectTransport(emoji) {
+            car.textContent = emoji;
+            
+            // Update active state
+            document.querySelectorAll('#transportMenu .selection-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-transport="${emoji}"]`).classList.add('active');
+            
+            closeTransportMenu();
+        }
+
+        function selectDestination(emoji) {
+            document.getElementById('destinationSelector').textContent = emoji;
+            
+            // Update active state
+            document.querySelectorAll('#destinationMenu .selection-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-destination="${emoji}"]`).classList.add('active');
+            
+            closeDestinationMenu();
+        }
+
+        // Time selector functions
+        function showTimeSelector() {
+            closeTransportMenu();
+            closeDestinationMenu();
+            document.getElementById('timeSelector').classList.add('show');
+        }
+
+        function closeTimeSelector() {
+            document.getElementById('timeSelector').classList.remove('show');
+        }
+
+        function updateTimeDisplay() {
+            const slider = document.getElementById('timeSlider');
+            const display = document.getElementById('selectedTimeDisplay');
+            const minutes = parseInt(slider.value);
+            
+            if (window.langManager) {
+                const minText = window.langManager.translate('minutes');
+                display.textContent = `${minutes} ${minText}`;
+            } else {
+                display.textContent = `${minutes} min`;
+            }
+        }
+
+        function adjustTime(change) {
+            const slider = document.getElementById('timeSlider');
+            const newValue = Math.max(1, Math.min(60, parseInt(slider.value) + change));
+            slider.value = newValue;
+            updateTimeDisplay();
+        }
+
+        function setPresetTime(minutes) {
+            document.getElementById('timeSlider').value = minutes;
+            updateTimeDisplay();
+        }
+
+        function startTripWithSelectedTime() {
+            const selectedMinutes = parseInt(document.getElementById('timeSlider').value);
+            closeTimeSelector();
+            startTrip(selectedMinutes);
+        }
 
         function startTrip(minutes) {
             if (!minutes || minutes <= 0) {
@@ -65,32 +272,23 @@
             }, 1000);
         }
 
-        function addMinutes(minutes) {
-            if (minutes <= 0) return;
-            if (intervalId === null) {
-                // No trip running, start a new trip
-                startTrip(minutes);
-            } else {
-                // Add minutes to totalSeconds
-                totalSeconds += minutes * 60;
-                updateTimeRemaining();
-            }
-        }
-
         function resetTrip() {
             clearInterval(intervalId);
             intervalId = null;
             progress = 0;
             elapsedSeconds = 0;
             totalSeconds = 0;
-            car.style.left = '0px'; // Explicitly move car to the beginning
+            car.style.left = '-80px'; // Match the starting position
             updateCarPosition();
             updateTimeRemaining();
         }
 
         function updateCarPosition() {
-            const roadWidth = road.offsetWidth - car.offsetWidth; // keep car inside road
-            const carPosition = (progress / 100) * roadWidth;
+            const roadWidth = road.offsetWidth;
+            const carWidth = car.offsetWidth;
+            const startPosition = -80; // Match the CSS left position
+            const endPosition = roadWidth - carWidth + 80; // Account for car width and offset
+            const carPosition = startPosition + (progress / 100) * (endPosition - startPosition);
             car.style.left = `${carPosition}px`;
         }
 
@@ -119,8 +317,8 @@
         // Keep car positioned correctly if the window is resized
         window.addEventListener('resize', updateCarPosition);
 
-        // Ensure car starts at 0
-        car.style.left = '0px';
+        // Ensure car starts at the beginning
+        car.style.left = '-80px';
 
         // Wait for language manager to be ready
         document.addEventListener('DOMContentLoaded', () => {
