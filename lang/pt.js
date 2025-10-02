@@ -54,5 +54,12 @@ window.translations.pt = {
     hospital: "Hospital",
     store: "Loja",
     arcade: "Arcade",
-    restaurant: "Restaurante"
+    restaurant: "Restaurante",
+    
+    // About section
+    aboutUsTitle: "Sobre Nós",
+    collaborator1Name: "Carlos Correa",
+    collaborator1Description: "Engenheiro de software apaixonado por criar soluções tecnológicas acessíveis. Dedicado a construir ferramentas que facilitam a vida quotidiana de crianças com autismo e suas famílias.",
+    collaborator2Name: "Laura Abitante",
+    collaborator2Description: "Especialista em garantia de qualidade e mãe de uma criança autista. Traz uma perspetiva inestimável do mundo real e garante que as nossas ferramentas realmente atendem às necessidades das famílias que navegam o autismo juntas."
 };
