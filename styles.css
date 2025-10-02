@@ -235,6 +235,18 @@ body {
     padding: 0 20px;
 }
 
+.time-display {
+    text-align: center;
+    color: var(--primary-blue);
+    font-size: 2rem;
+    margin-bottom: 30px;
+    font-weight: 600;
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #timeRemaining {
     text-align: center;
     color: var(--primary-blue);
@@ -395,8 +407,10 @@ body {
     }
     
     .controls {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
+        justify-content: center;
+        gap: 15px;
     }
     
     .controls input {
@@ -404,6 +418,14 @@ body {
         max-width: 300px;
         margin-right: 0;
         margin-bottom: 10px;
+    }
+    
+    .controls button {
+        flex: 1;
+        max-width: 120px;
+        min-width: 80px;
+        padding: 12px 15px;
+        font-size: 16px;
     }
     
     .language-switcher {

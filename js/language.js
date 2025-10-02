@@ -127,16 +127,6 @@ class LanguageManager {
             btn.classList.toggle('active', lang === this.currentLanguage);
         });
     }
-
-    // Special method for trip progress time updates
-    updateTimeRemaining(mins, secs) {
-        const element = document.getElementById('timeRemaining');
-        if (element && mins !== undefined && secs !== undefined) {
-            element.textContent = this.translate('timeLeftText', { mins, secs });
-        } else if (element) {
-            element.textContent = this.translate('tripProgressHeading');
-        }
-    }
 }
 
 // Initialize language manager when DOM is loaded

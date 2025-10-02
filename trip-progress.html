@@ -11,10 +11,10 @@
         <nav>
             <a href="index.html" class="back-link" data-translate="backToHome">← Back to Home</a>
         </nav>
-        <h1 id="timeRemaining" data-translate="tripProgressHeading">Trip progress</h1>
     </header>
     
     <main class="trip-content">
+        <div id="timeDisplay" class="time-display">Ready to start</div>
         <div class="road">
             <div class="road-marks"></div>
             <div class="car">🚗</div>
@@ -32,7 +32,7 @@
     <script>
         const car = document.querySelector('.car');
         const road = document.querySelector('.road');
-        const timeRemainingEl = document.getElementById('timeRemaining');
+        const timeDisplayEl = document.getElementById('timeDisplay');
         let progress = 0;
         let intervalId = null;
         let totalSeconds = 0;
@@ -98,9 +98,9 @@
             if (!totalSeconds) {
                 // Use language manager if available
                 if (window.langManager) {
-                    window.langManager.updateTimeRemaining();
+                    timeDisplayEl.textContent = window.langManager.translate('tripProgressHeading');
                 } else {
-                    timeRemainingEl.textContent = 'Trip progress';
+                    timeDisplayEl.textContent = 'Ready to start';
                 }
                 return;
             }
@@ -110,9 +110,9 @@
             
             // Use language manager if available
             if (window.langManager) {
-                window.langManager.updateTimeRemaining(mins, secs);
+                timeDisplayEl.textContent = window.langManager.translate('timeLeftText', { mins, secs });
             } else {
-                timeRemainingEl.textContent = `Time left: ${mins}m ${secs}s`;
+                timeDisplayEl.textContent = `Time left: ${mins}m ${secs}s`;
             }
         }
 
