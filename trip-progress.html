@@ -10,6 +10,7 @@
     <header class="subpage-header">
         <nav>
             <a href="index.html" class="back-link" data-translate="backToHome">← Back to Home</a>
+            <button id="fullscreenBtn" class="fullscreen-btn" onclick="toggleFullscreen()" data-translate="fullscreenButton">⛶ Fullscreen</button>
         </nav>
     </header>
     
@@ -319,6 +320,30 @@
 
         // Ensure car starts at the beginning
         car.style.left = '-80px';
+
+        // Fullscreen functionality
+        function toggleFullscreen() {
+            const body = document.body;
+            const btn = document.getElementById('fullscreenBtn');
+            
+            if (body.classList.contains('fullscreen-mode')) {
+                // Exit fullscreen
+                body.classList.remove('fullscreen-mode');
+                if (window.langManager) {
+                    btn.textContent = `⛶ ${window.langManager.translate('fullscreenButton')}`;
+                } else {
+                    btn.textContent = '⛶ Fullscreen';
+                }
+            } else {
+                // Enter fullscreen
+                body.classList.add('fullscreen-mode');
+                if (window.langManager) {
+                    btn.textContent = `⏿ ${window.langManager.translate('exitFullscreenButton')}`;
+                } else {
+                    btn.textContent = '⏿ Exit Fullscreen';
+                }
+            }
+        }
 
         // Wait for language manager to be ready
         document.addEventListener('DOMContentLoaded', () => {

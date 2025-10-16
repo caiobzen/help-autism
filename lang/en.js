@@ -61,5 +61,9 @@ window.translations.en = {
     collaborator1Name: "Carlos Correa",
     collaborator1Description: "Software engineer passionate about creating accessible technology solutions. Dedicated to building tools that make daily life easier for children with autism and their families.",
     collaborator2Name: "Laura Abitante",
-    collaborator2Description: "Quality assurance specialist and mother of an autistic child. Brings invaluable real-world perspective and ensures our tools truly meet the needs of families navigating autism together."
+    collaborator2Description: "Quality assurance specialist and mother of an autistic child. Brings invaluable real-world perspective and ensures our tools truly meet the needs of families navigating autism together.",
+    
+    // Fullscreen
+    fullscreenButton: "Fullscreen",
+    exitFullscreenButton: "Exit Fullscreen"
 };

@@ -280,6 +280,9 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .back-link {
@@ -655,6 +658,59 @@ body {
 .controls button:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+}
+
+/* Fullscreen button styles */
+.fullscreen-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary-blue);
+    color: var(--white);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.fullscreen-btn:hover {
+    background: var(--accent-teal);
+    transform: scale(1.05);
+}
+
+/* Fullscreen mode styles */
+.fullscreen-mode {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--light-gray);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.fullscreen-mode .subpage-header,
+.fullscreen-mode .time-display,
+.fullscreen-mode .controls {
+    display: none !important;
+}
+
+.fullscreen-mode .subpage-header {
+    display: block !important;
+}
+
+.fullscreen-mode .trip-content {
+    height: 100vh;
+    justify-content: flex-start;
+    margin: 0;
+    padding-top: 100px;
+    padding-left: 40px;
+}
+
+.fullscreen-mode .road {
+    transform: scale(1.2);
+    margin-top: 0;
 }
 
 /* Language switcher styles */
